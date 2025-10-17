@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Computation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef2f3;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    h1 {
+      color: #0056b3;
+    }
+
+    .container {
+      background: white;
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 90%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .passed {
+      color: green;
+    }
+
+    .failed {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Grade Computation</h1>
+
+  <div class="container">
+    <label>Attendance (25%)</label>
+    <input type="number" id="attendance" placeholder="Enter attendance score">
+
+    <label>Quiz (25%)</label>
+    <input type="number" id="quiz" placeholder="Enter quiz score">
+
+    <label>Exam (50%)</label>
+    <input type="number" id="exam" placeholder="Enter exam score">
+
+    <button onclick="compute()">Compute</button>
+
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function compute() {
+      let attendance = parseFloat(document.getElementById("attendance").value);
+      let quiz = parseFloat(document.getElementById("quiz").value);
+      let exam = parseFloat(document.getElementById("exam").value);
+
+      // Weighted computation
+      let finalGrade = (attendance * 0.25) + (quiz * 0.25) + (exam * 0.5);
+
+      let resultText = document.getElementById("result");
+
+      if (finalGrade >= 75) {
+        resultText.textContent = Final Grade: ${finalGrade.toFixed(2)} — PASSED;
+        resultText.className = "passed";
+      } else {
+        resultText.textContent = Final Grade: ${finalGrade.toFixed(2)} — FAILED;
+        resultText.className = "failed";
+      }
+
+      console.log("Attendance:", attendance);
+      console.log("Quiz:", quiz);
+      console.log("Exam:", exam);
+      console.log("Final Grade:", finalGrade);
+    }
+  </script>
+
+</body>
+</html>
