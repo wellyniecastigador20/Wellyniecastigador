@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center font-sans">
+
+  <div class="w-full max-w-xs bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+    <h1 class="text-center text-2xl font-bold text-indigo-600 mb-4">Calculator</h1>
+
+    <div class="space-y-4">
+      <input type="number" id="n1" placeholder="Enter 1st no."
+        class="w-full border border-gray-300 rounded-lg p-2 text-center focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+
+      <input type="text" id="op" placeholder="Enter operator (+ - * /)"
+        class="w-full border border-gray-300 rounded-lg p-2 text-center focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+
+      <input type="number" id="n2" placeholder="Enter 2nd no."
+        class="w-full border border-gray-300 rounded-lg p-2 text-center focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+    </div>
+
+    <button onclick="calc()" class="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition">
+      COMPUTE
+    </button>
+
+    <div class="text-center mt-5 border-t border-gray-200 pt-3">
+      <p class="text-sm text-gray-500 mb-2">Result:</p>
+      <div id="res" class="text-3xl font-extrabold text-gray-800 py-2 rounded-lg flex justify-center items-center bg-gray-50"></div>
+    </div>
+  </div>
+
+  <script>
+    function calc() {
+      const n1 = parseFloat(document.getElementById("n1").value);
+      const op = document.getElementById("op").value.trim();
+      const n2 = parseFloat(document.getElementById("n2").value);
+      const resEl = document.getElementById("res");
+
+      resEl.className = "text-3xl font-extrabold text-gray-800 py-2 rounded-lg flex justify-center items-center bg-gray-50";
+
+      if (isNaN(n1) || isNaN(n2)) {
+        resEl.textContent = "Invalid Number";
+        resEl.classList.add("text-red-600");
+        return;
+      }
+
+      let result;
+
+      switch (op) {
+        case '+':
+          result = n1 + n2;
+          break;
+        case '-':
+          result = n1 - n2;
+          break;
+        case '*':
+          result = n1 * n2;
+          break;
+        case '/':
+          if (n2 === 0) {
+            resEl.textContent = "Div by Zero!";
+            resEl.classList.add("text-red-600");
+            return;
+          }
+          result = n1 / n2;
+          break;
+        default:
+          resEl.textContent = "Bad Operator!";
+          resEl.classList.add("text-red-600");
+          return;
+      }
+
+      resEl.textContent = result.toFixed(2);
+      resEl.classList.add("text-green-600");
+    }
+  </script>
+
+</body>
+</html>
